@@ -16,6 +16,4 @@ groq               # swap for google-generativeai if you choose Gemini
 # causalml is intentionally NOT listed: it needs C++ build tools on Windows and often
 # fails to install. We implement the T- and X-learner manually with XGBoost instead.
 
-git remote add origin https://github.com/abhaydw1/UpliftX.git
-git branch -M main
-git push -u origin main
+

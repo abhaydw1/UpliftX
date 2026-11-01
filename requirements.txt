@@ -1,0 +1,17 @@
+# Data + core ML
+pandas
+numpy
+scikit-learn
+xgboost
+scikit-uplift      # Hillstrom dataset loader + Qini / uplift metrics
+matplotlib
+
+# Explainability
+shap
+
+# LLM offer agent (Step 8) + secrets from .env
+python-dotenv
+groq               # swap for google-generativeai if you choose Gemini
+
+# causalml is intentionally NOT listed: it needs C++ build tools on Windows and often
+# fails to install. We implement the T- and X-learner manually with XGBoost instead.

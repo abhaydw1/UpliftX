@@ -53,3 +53,34 @@ select recency_band,avg(case when treatment =1 then visit end)*100 as treated_vi
 from rb
 group by recency_band
 order by recency_band;
+
+-- Q6: rank the 18 newbie x channel x recency_band combinations by uplift
+with rb as (
+    select *,
+           case when recency between 1 and 4 then 'band 1-4'
+                when recency between 5 and 8 then 'band 5-8'
+                else 'band 9-12' end as recency_band
+    from customers
+),
+combos as (
+    select newbie,
+           channel,
+           recency_band,
+           sum(treatment)                  as n_treated,
+           count(*) - sum(treatment)       as n_control,
+           avg(case when treatment = 1 then visit end) * 100 as treated_pct,
+           avg(case when treatment = 0 then visit end) * 100 as control_pct
+    from rb
+    group by newbie, channel, recency_band
+)
+select newbie,
+       channel,
+       recency_band,
+       n_treated,
+       n_control,
+       round(treated_pct, 2)               as treated_pct,
+       round(control_pct, 2)               as control_pct,
+       round(treated_pct - control_pct, 2) as uplift_pp,
+       rank() over (order by treated_pct - control_pct desc) as uplift_rank
+from combos
+order by uplift_rank;

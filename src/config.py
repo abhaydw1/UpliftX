@@ -12,6 +12,7 @@ TABLE_NAME = "customers"
 
 # ---------- Reproducibility ----------
 RANDOM_SEED = 42
+TEST_SIZE = 0.30                   # 70/30 train/test split
 
 # ---------- Business assumptions ----------
 OFFER_COST = 20                    # Rs per contact (change here to test sensitivity)
